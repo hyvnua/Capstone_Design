@@ -91,7 +91,7 @@ class Communication extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CircleAvatar(
-                                child : Image.asset('assets/sloth.png', height: 70, width: 70,),
+                                child : Image.asset('assets/elephant.png', height: 70, width: 70,),
                                 // backgroundImage: AssetImage('assets/koala.png'),
                                 radius: 50.0,
                                 backgroundColor: Colors.grey[350],
