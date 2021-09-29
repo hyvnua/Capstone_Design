@@ -83,19 +83,26 @@ class Communication extends StatelessWidget {
                     Container(
                       height : 150,
                       width : 140,
-                      decoration: BoxDecoration(
-                        color: Colors.redAccent,
+                      decoration: const BoxDecoration(
+                        color: Colors.blueGrey,
                       ),
                       child: Column(
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CircleAvatar(
+                                child : Image.asset('assets/sloth.png', height: 70, width: 70,),
                                 // backgroundImage: AssetImage('assets/koala.png'),
                                 radius: 50.0,
+                                backgroundColor: Colors.grey[350],
                               ),
                             ),
-                            Text('현재 나의 순위 : 53위'),
+                            Text(
+                              '현재 나의 순위 : 53위',
+                              style : TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
                             //TextAlign.center = true,
                           ],
                       ),
@@ -104,9 +111,9 @@ class Communication extends StatelessWidget {
                 ),
               ),
             ), //경쟁순위 보여주는 박스
-            Expanded(
+            Expanded(//게시판 박스
               child: SingleChildScrollView(
-                child: Padding(  //게시판 박스
+                child: Padding(
                   padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
                   child: Column(
                     children: <Widget>[
@@ -114,14 +121,14 @@ class Communication extends StatelessWidget {
                         height : 425,
                         width : 450,
                         decoration: BoxDecoration(
-                          color: Colors.lightBlue,
+                          color: Colors.black45,
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
+            ), //게시판 박스
           ],
         ),
       ),
