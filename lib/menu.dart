@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:anti_alcohol/communication.dart';
 
 class menu extends StatelessWidget {
 
@@ -40,6 +41,15 @@ class menu extends StatelessWidget {
               height : 200,
               child: ListTile(   //커뮤니티 목록
                 title: Text("커뮤니티 목록"),
+                onTap: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Communication(),
+                    ),
+                  ),
+                  // Navigator.pop(context),
+                },
               ),
             ),
             Divider(height: 3.0, color: Colors.black,),

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:anti_alcohol/communication.dart';
+import 'package:flutter/painting.dart';
 
 class home extends StatelessWidget {
 
@@ -10,45 +12,66 @@ class home extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             Container(
-              height : 65.0,  // 사용자 정보 목록 높이 설정
+              height : 55.0,  // 사용자 정보 목록 높이 설정
               child: DrawerHeader( //사용자 정보 목록
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     CircleAvatar(
                       //backgroundImage: ,
-                      radius: 30.0,
+                      radius: 25.0,
                     ),
                     Expanded(
-                      child: Text("OOO사용자님"),
+                      child: Text("OOO사용자님",
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                     Icon(Icons.menu),
                   ],
                 ),
               ),
             ),
-            Divider(height: 3.0, color: Colors.black,),
+            // Divider(height: 3.0, color: Colors.black,),
+            
             Container(
-              height : 200,
-              child: ListTile(   //절약 비용 목록
-
-                title: Text("절약 비용 목록"),
+              color: Colors.grey[300],
+              height : 150,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(5.0,30.0,0.0,0.0),
+                child: ListTile(//절약 비용 목록
+                  title: Text(
+                    "절약 비용 목록\n오늘까지 절약한 비용 : 580,000\n오늘 절약한 비용 : 12,000",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ),
               ),
 
             ),
+            
             Divider(height: 3.0, color: Colors.black,),
             Container(
-              height : 200,
-              child: ListTile(   //커뮤니티 목록
-                title: Text("커뮤니티 목록"),
+              height : 55,
+              child: ListTile(//커뮤니티 목록
+                title: Text(
+                  "커뮤니티 목록",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 onTap: () => {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //   builder: (context) => communication(),
-                  //   ),
-                  // ),
-                  Navigator.pop(context),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) => Communication(),
+                    ),
+                  ),
+                  // Navigator.pop(context),
                 },
               ),
             ),
