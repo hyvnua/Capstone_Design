@@ -24,7 +24,7 @@
 
 ## 개발 환경
   + Flutter
-  + DB : 
+  + Firebase 
   
 
 
