@@ -17,6 +17,8 @@ class AuthService{//인증서비스
     //MyUser 형식을 리턴함
   }
 
+
+
   Stream<MyUser?> get user{//firebaseAuth 객체에 있는 인증절차를 이용해 저장되어있는 사용자 정보들을 불러온다.
     // 스트림 : 데이터나 이벤트가 들어오는 통로
     // 비동기를 위해 사용된다. 데이터를 만드는곳과 소비하는곳을 나눈다.
@@ -28,6 +30,9 @@ class AuthService{//인증서비스
         // firebase의 User객체에다가 _userFromFireBaseUser() 메소드의 결과를 넣어줌
         //.map(_userFromFireBaseUser); // 이렇게 써도됨
   }
+
+
+
 
   Future signInAnon() async{//로그인 : 익명로그인 기능 -> fireBase에서 채크해줘야함
     try{
@@ -42,23 +47,23 @@ class AuthService{//인증서비스
     }
   }
 
-  Future registerWithEmailAndPassword(String email, String password) async{
-    try{// 회원가입 메소드 
-      // 여기서 이메일과 패스워드로 사용자의 계정을 만든다.
-      // 이떄 이메일 형식이 아니면 result에 널이 들어간다.
-      UserCredential result = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password
-      );
-
-      User? user = result.user;
-      await DatabaseService(uid: user!.uid).updateUserData('0', 'new coffee member', 100);
-      return _userFromFireBaseUser(user!);
-
-    }catch(e){
-      print(e.toString());
-      return null;
-    }
-  }
+  // Future registerWithEmailAndPassword(String email, String password) async{
+  //   try{// 회원가입 메소드
+  //     // 여기서 이메일과 패스워드로 사용자의 계정을 만든다.
+  //     // 이떄 이메일 형식이 아니면 result에 널이 들어간다.
+  //     UserCredential result = await _auth.createUserWithEmailAndPassword(
+  //         email: email, password: password
+  //     );
+  //
+  //     User? user = result.user;
+  //     await DatabaseService(uid: user!.uid).updateUserData('0', 'new coffee member', 100);
+  //     return _userFromFireBaseUser(user!);
+  //
+  //   }catch(e){
+  //     print(e.toString());
+  //     return null;
+  //   }
+  // }
 
   Future signInWithEmailAndPassword(String email, String password) async{
     try{

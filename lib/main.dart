@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:alcohol_project/models/user.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 
 void main() async{
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       // 데이터를 생성하는 곳과 소비하는곳으로 나뉜다.
       // 이곳은 데이터를 생성하는곳
       initialData: null,// 초기값을 꼭 넣어줘야 한다.
-      value: AuthService().user,//인증하고 user로 사용자 정보가입정보를 모두 가져온다.
+      value: AuthService().user,//로그인 인증하기 위해 user로 사용자들의 가입정보를 모두 가져온다.
       // 따라서 stream 통로에 모든 사용자계정에 대한 정보를 가져온다.
       //AuthService에 있는 stream인 user를 호출해서 데이터를 생성
 

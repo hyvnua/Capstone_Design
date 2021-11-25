@@ -3,7 +3,7 @@ import 'package:alcohol_project/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:alcohol_project/shared/constants.dart';
 // import 'package:flutter_spinkit/flutter_spinkit.dart';
-
+import 'package:getwidget/getwidget.dart';
 // 로그인페이지
 
 class SignIn extends StatefulWidget {
@@ -33,7 +33,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
-      backgroundColor: Colors.lightGreen[50],
+      backgroundColor: Colors.lightGreen[400],
       // appBar: AppBar(
       //   backgroundColor: Colors.brown[400],
       //   elevation: 0.0,
@@ -58,11 +58,18 @@ class _SignInState extends State<SignIn> {
             key: _formKey,
             child: Column(
               children: [
-                CircleAvatar(
-
-                  radius: 80.0,
-                  backgroundImage: AssetImage('assets/1.png'),
+                //CircleAvatar
+                GFAvatar(
+                    radius: 140,
+                    backgroundImage:AssetImage('assets/ko_image.png',),
+                    shape: GFAvatarShape.standard
                 ),
+                // CircleAvatar(
+                //   backgroundColor: Colors.lightGreen[50],
+                //
+                //   radius: 120.0,
+                //   backgroundImage: AssetImage('assets/ko_2_ch.png'),
+                // ),
                 SizedBox(height: 30.0),
                 TextFormField(
                   //공통 클래스 만들어서 스타일 적용
@@ -72,7 +79,7 @@ class _SignInState extends State<SignIn> {
                     setState(() => email = val);//email변수에 실시간으로 값을 넣어줌
                   },
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: 15.0),
                 TextFormField(
                   decoration: textInputDecoration.copyWith(hintText: 'Password'),
                   obscureText: true,
@@ -82,37 +89,43 @@ class _SignInState extends State<SignIn> {
                   },
                 ),
                 SizedBox(height: 20.0),
-                RaisedButton(// 로그인에 사용할 버튼
-                  onPressed:() async {//키 눌렸을 때
-                    if(_formKey.currentState!.validate()){//현재 state에 있는 form이 맞는지 확인 -> 맞다면 실행
-                      // 이때 form안에 있는 validate가 실행됨
-                      // 입력받은 값을 form의 유효성 검사 부분으로 넘김
-                      setState(() => {
-                        loading = true
-                      });
-                      print('valid');
-
-                      // auth.dart 위젯 부분에 있는 모든 사용자 계정과 비교 후 있으면 해당 사용자 계정정보 리턴함
-                      dynamic result = await _auth.signInWithEmailAndPassword(//form으로부터 받아온 정보를 이용해 사용자 계정정보확인. 있으면 사용자계정 정보 가져옴
-                          email,
-                          passwd,
-                      );//user의 uid가 result에 저장된다.
-                      // 최종적으로 result가 authenticate.dart로 return 되서-> wrapper.dart -> main.dart 로가서 stream 통로로 인해 user 정보가 입력된다.
-                      //그래서 user 정보가 있으므로 wrapper.dart 에서 home() 위젯을 실행한다.
-
-                      if(result == null){//firebaseAuth 에 계정정보가 없으면 실행
-                        setState(() {
-                          error = '로그인 할 수 없습니다. 아이디와 비밀번호를 체크하세요.';
-                          loading = false;
+                ButtonTheme(
+                  height: 45,
+                  minWidth: 500,
+                  child: RaisedButton(// 로그인에 사용할 버튼
+                    onPressed:() async {//키 눌렸을 때
+                      if(_formKey.currentState!.validate()){//현재 state에 있는 form이 맞는지 확인 -> 맞다면 실행
+                        // 이때 form안에 있는 validate가 실행됨
+                        // 입력받은 값을 form의 유효성 검사 부분으로 넘김
+                        setState(() => {
+                          loading = true
                         });
+                        print('valid');
+
+                        // auth.dart 위젯 부분에 있는 모든 사용자 계정과 비교 후 있으면 해당 사용자 계정정보 리턴함
+                        dynamic result = await _auth.signInWithEmailAndPassword(//form으로부터 받아온 정보를 이용해 사용자 계정정보확인. 있으면 사용자계정 정보 가져옴
+                            email,
+                            passwd,
+                        );//user의 uid가 result에 저장된다.
+                        // 최종적으로 result가 authenticate.dart로 return 되서-> wrapper.dart -> main.dart 로가서 stream 통로로 인해 user 정보가 입력된다.
+                        //그래서 user 정보가 있으므로 wrapper.dart 에서 home() 위젯을 실행한다.
+
+                        if(result == null){//firebaseAuth 에 계정정보가 없으면 실행
+                          setState(() {
+                            error = '로그인 할 수 없습니다. 아이디와 비밀번호를 체크하세요.';
+                            loading = false;
+                          });
+                        }
                       }
-                    }
-                  },
-                  color: Colors.pink[400],
-                  child: Text(
-                    ' 로그인 ',
-                    style: TextStyle(
+                    },
+
+                    color: Colors.brown[600],
+                    child: Text(
+                      ' 로그인 ',
+                      style: TextStyle(
+                        fontSize: 20,
                         color: Colors.white
+                      ),
                     ),
                   ),
                 ),

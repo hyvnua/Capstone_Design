@@ -3,6 +3,10 @@ import 'package:path/path.dart';
 import 'package:alcohol_project/screens/board/db/memo.dart';
 import 'package:alcohol_project/screens/board/screen/view.dart';
 import 'package:alcohol_project/screens/board/screen/edit.dart';
+
+
+
+
 final String tableName = 'memos';
 
 class DBHelper {
@@ -49,7 +53,8 @@ class DBHelper {
     // List<Map<String, dynamic>를 List<Memo>으로 변환합니다.
     return List.generate(maps.length, (i) {
       return Memo(
-        id: maps[i]['id'],
+        date : maps[i]['date'],
+        user_uid: maps[i]['user_uid'],
         title: maps[i]['title'],
         text: maps[i]['text'],
       );
@@ -66,11 +71,11 @@ class DBHelper {
       // Memo의 id가 일치하는 지 확인합니다.
       where: "id = ?",
       // Memo의 id를 whereArg로 넘겨 SQL injection을 방지합니다.
-      whereArgs: [memo.id],
+      whereArgs: [memo.user_uid],
     );
   }
 
-  Future<void> deleteMemo(String id) async {
+  Future<void> deleteMemo(String user_uid) async {
     final db = await database;
 
     // 데이터베이스에서 Memo를 삭제합니다.
@@ -79,21 +84,22 @@ class DBHelper {
       // 특정 memo를 제거하기 위해 `where` 절을 사용하세요
       where: "id = ?",
       // Memo의 id를 where의 인자로 넘겨 SQL injection을 방지합니다.
-      whereArgs: [id],
+      whereArgs: [user_uid],
     );
   }
 
-  Future<List<Memo>> findMemo(String id) async {
+  Future<List<Memo>> findMemo(String user_uid) async {
     final db = await database;
 
     // 모든 Memo를 얻기 위해 테이블에 질의합니다.
     final List<Map<String, dynamic>> maps =
-    await db.query('memos', where: 'id = ?', whereArgs: [id]);
+    await db.query('memos', where: 'user_uid = ?', whereArgs: [user_uid]);
 
     // List<Map<String, dynamic>를 List<Memo>으로 변환합니다.
     return List.generate(maps.length, (i) {
       return Memo(
-        id: maps[i]['id'],
+        date: maps[i]['date'],
+        user_uid: maps[i]['user_uid'],
         title: maps[i]['title'],
         text: maps[i]['text'],
       );
