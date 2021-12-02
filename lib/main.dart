@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:alcohol_project/models/user.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-
 
 void main() async{
   // firebase를 사용하기 위해서 먼저 초기화해준다.
@@ -35,6 +33,7 @@ class MyApp extends StatelessWidget {
       //AuthService에 있는 stream인 user를 호출해서 데이터를 생성
 
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Wrapper(),
       ),
     );

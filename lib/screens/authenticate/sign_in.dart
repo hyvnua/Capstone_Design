@@ -64,12 +64,6 @@ class _SignInState extends State<SignIn> {
                     backgroundImage:AssetImage('assets/ko_image.png',),
                     shape: GFAvatarShape.standard
                 ),
-                // CircleAvatar(
-                //   backgroundColor: Colors.lightGreen[50],
-                //
-                //   radius: 120.0,
-                //   backgroundImage: AssetImage('assets/ko_2_ch.png'),
-                // ),
                 SizedBox(height: 30.0),
                 TextFormField(
                   //공통 클래스 만들어서 스타일 적용

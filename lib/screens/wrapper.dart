@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 // 로그인과 비로그인을 나눠주는 구간
 
 class Wrapper extends StatelessWidget {
-  // const Wrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

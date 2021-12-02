@@ -1,24 +1,3 @@
-//
-// class Person{
-//   late final String name;
-//   late final String age;
-//   late final int score;
-//   late final String uid;
-//
-//   Person({required this.name, required this.age, required this.score, required this.uid});
-//
-//
-// }
-class Person_Top3{
-  late final String name;
-  late final String drink;
-  late final int score;
-  late final String uid;
-
-  Person_Top3({required this.name, required this.drink, required this.score,required this.uid});
-
-}
-
 class Person {
   late final String name;
   late final String drink;
@@ -28,7 +7,7 @@ class Person {
   late final String startday;
 
   Person(
-      {required this.name, required this.drink, required this.score, required this.uid,required this.steps, required this.startday});
+      {required this.name, required this.drink, required this.score, required this.uid, required this.steps, required this.startday});
 
   int avatar_choose() {
     if(score < 100){
