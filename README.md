@@ -27,7 +27,8 @@
 + 게시판 기능 
 
 ## 프로젝트 결과
-![image](https://user-images.githubusercontent.com/84326090/144738541-6084da90-ddcd-41e2-a013-885c57a28b15.png)
+![image](https://user-images.githubusercontent.com/84326090/144747332-156922b9-9ed7-4ed2-a037-1fbd8e516e6c.png)
+
 
 
 ## 기대효과
