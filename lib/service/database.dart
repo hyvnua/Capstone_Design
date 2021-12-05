@@ -41,6 +41,12 @@ class DatabaseService{
     });
   }
 
+  Future member_update_7Day_countinue_UserScore(int score) async{// 출석 체크시 점수 주는 곳
+    return await memberCollection.doc(uid).update({// set은 데이터베이스 필드까지 초기화 시켜버림 -> 필드값만 바꿀경우 update 사용
+      'score': score+120// 점수
+    });
+  }
+
   Future member_update_memo_UserScore(int score) async{// 개시판 작성시 점수 주는곳
     return await memberCollection.doc(uid).update({// set은 데이터베이스 필드까지 초기화 시켜버림 -> 필드값만 바꿀경우 update 사용
       'score': score+10// 점수

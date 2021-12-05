@@ -36,6 +36,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final user = Provider.of<MyUser>(context);
+    int day_count = 1;
+
 
     void _showSettingsPanel() {//사용자 계정에 저장되어있는 정보를 바꾸기위해 사용되는 메소드
       showModalBottomSheet(context: context, builder: (context){
@@ -50,6 +52,18 @@ class Home extends StatelessWidget {
       return SnackBar(
         duration: Duration(seconds: 2),
         content: Text("${diff} 일 이상 출석하지 않아 등급이 하락합니다. "),
+        action: SnackBarAction(
+          label: "Done",
+          textColor: Colors.white,
+          onPressed: () {},
+        ),
+      );
+    }
+
+    SnackBar Day7SnackBar() {
+      return SnackBar(
+        duration: Duration(seconds: 2),
+        content: Text("연속으로 7일을 출석체크 하셨습니다. 추가점수가 부여됩니다!"),
         action: SnackBarAction(
           label: "Done",
           textColor: Colors.white,
@@ -85,7 +99,7 @@ class Home extends StatelessWidget {
                       child: Text('네'),
                       onPressed: () async {
 
-                        await DatabaseService(uid: user.uid).member_update_attend_UserScore(score);
+
                         DateTime currentTime = await NTP.now();
                         currentTime = currentTime.toUtc().add(Duration(hours: 9));
                         DateTime parsedDate_ = DateTime(currentTime.year, currentTime.month, currentTime.day);
@@ -99,12 +113,49 @@ class Home extends StatelessWidget {
                         String db_before_date = snapshot.data!.cur_dateTime.substring(
                             snapshot.data!.cur_dateTime.length - 10,snapshot.data!.cur_dateTime.length);
 
+
                         if(parsedDate_string.compareTo(db_before_date) != 0){//출석체크 날자가 중복되지 않을 경우 실행
 
                           int difference = int.parse(
                               parsedDate_.difference(DateTime.parse(db_before_date)
                               ).inDays.toString()
                           );
+
+                          if(difference != 1){//전날 출석체크 하지 않았다면
+                            day_count = 0; // 연속으로 출석체크 시 증가하는 변수를 0으로 리셋
+
+                          }
+                          print(day_count);
+
+                          // 7일 이상 출석체크시 실행될 곳 -> 추가점수 부여
+                          if(day_count == 7){//추가 점수 부여
+                            // if(snapshot.data!.cur_dateTime.length >= 86){//length 가 86이 넘어야 실행 -> 7일이상 출석체크해야 실행되는 곳
+                            //   String db_7Day_before_date = snapshot.data!.cur_dateTime.substring(
+                            //       snapshot.data!.cur_dateTime.length - 87,snapshot.data!.cur_dateTime.length -77);
+                            //
+                            //   print("day_7Day: "+db_7Day_before_date);
+                            //
+                            //   int day_continuity = int.parse(
+                            //       parsedDate_.difference(DateTime.parse(db_7Day_before_date)
+                            //       ).inDays.toString()
+                            //   );
+                            //
+                            //   print("7일아니면 " + day_continuity.toString());
+                            //
+                            //   if(day_continuity == 7){
+                            //     print("7이면 출력되는곳 ");
+                            //   }
+                            // }
+                            print("7일 출석하셨습니다. 추가 점수가 부여됩니다. ");
+                            scaffoldKey.currentState!.showSnackBar(Day7SnackBar());
+                            await DatabaseService(uid: user.uid).member_update_7Day_countinue_UserScore(score);
+                            day_count = 0;// 다시 0으로 리셋
+
+                          }else{//아직 7일 출석이 아닐 경우 실행 -> 기본점수 부여
+
+                            day_count++;
+                            await DatabaseService(uid: user.uid).member_update_attend_UserScore(score);// 점수 부여
+                          }
 
                           if( difference >= 3){//만약 출석체크를 3일 이상 하지 않았더라면 실행
                             await DatabaseService(uid: user.uid).member_dropUserScore(score);
@@ -116,6 +167,7 @@ class Home extends StatelessWidget {
                             parsedDate_string,
                             snapshot.data!.cur_dateTime,
                           );
+
                         }
                         else{
                           scaffoldKey.currentState!.showSnackBar(today_clear_SnackBar());
